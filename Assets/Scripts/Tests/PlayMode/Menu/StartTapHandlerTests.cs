@@ -1,25 +1,29 @@
+
 using NUnit.Framework;
 
+using SquareDinoTestWork.Menu;
 using SquareDinoTestWork.Plot;
 
 using System.Collections;
 
-using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace SquareDinoTestWork.Menu.Tests
+namespace SquareDinoTestWork.Tests
 {
     internal sealed class StartTapHandlerTests
     {
         [UnityTest]
-        public IEnumerator StartGameTest()
+        public IEnumerator WhenClickingOnTap_AndGameIsNotStarted_ThenGameShouldBeStarted()
         {
-            StartTapHandler startTapHandler = new GameObject(nameof(StartTapHandler)).AddComponent<StartTapHandler>();
-            PlotManager plotManager = new GameObject(nameof(PlotManager)).AddComponent<PlotManager>();
+            // Arrange.
+            PlotManager plotManager = Setup.PlotManager();
+            StartTapHandler startTapHandler = Setup.StartTapHandler(plotManager);
 
+            // Act.
             startTapHandler.OnPointerClick(null);
 
-            Assert.IsTrue(plotManager.GameIsStarted());
+            // Assert.
+            Assert.AreEqual(true, new { c = plotManager.GameIsStarted() });
 
             return null;
         }
