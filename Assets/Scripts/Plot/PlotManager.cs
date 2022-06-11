@@ -40,14 +40,24 @@ namespace SquareDinoTestWork.Plot
             return gameIsStarted;
         }
 
-        internal Vector3 GetWaypointPosition(Vector3 currentPosition)
+        internal Vector3 GetWaypointPosition()
         {
             if (waypointsQueue.Count == 0)
             {
-                return currentPosition;
+                return Vector3.zero;
             }
 
             return waypointsQueue.Peek().transform.position;
+        }
+
+        internal Vector3 GetWaypointDirection()
+        {
+            if (waypointsQueue.Count == 0)
+            {
+                return Vector3.zero;
+            }
+
+            return waypointsQueue.Peek().transform.forward;
         }
 
         internal void SkipWaypoint()

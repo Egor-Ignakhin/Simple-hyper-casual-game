@@ -11,47 +11,56 @@ namespace SquareDinoTestWork.Player
 
         [SerializeField] private PlotManager plotManager;
 
-        [SerializeField] private PlayerInput playerInput;
+        [SerializeField] private PlayerManager playerManager;
 
         private void Start()
         {
-            SetupFirstWaypoint();
+            SetupWaypoint();
         }
 
-        private void SetupFirstWaypoint()
+        public void SetupWaypoint()
         {
-            var firstWaypoint = plotManager.GetWaypointPosition(transform.position);
-            navMeshAgent.SetDestination(firstWaypoint);
+            navMeshAgent.SetDestination(plotManager.GetWaypointPosition());
         }
 
-        private void Update()
+        public void Move()
         {
-            if (!plotManager.GameIsStarted())
-                return;
-
-            if (!playerInput.CanMoving())
+            if (CanStop())
             {
-                navMeshAgent.Stop();
+                navMeshAgent.isStopped = true;
+                playerManager.OnAgentStop();
+                RotateBodyToWaypointDirection();
                 return;
             }
 
-            Move();
+            RotateBodyToTarget();
+
+            navMeshAgent.isStopped = false;
+            playerManager.OnAgentRun();
         }
 
-        private void Move()
+        internal bool CanStop()
         {
-            if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
-            {
-                plotManager.SkipWaypoint();
-            }
-
-            var nextWaypointPosition = plotManager.GetWaypointPosition(transform.position);
-            navMeshAgent.SetDestination(nextWaypointPosition);
+            return navMeshAgent.remainingDistance <= (navMeshAgent.stoppingDistance * 5);
         }
 
-        internal bool TargetIsReached()
+
+        private void RotateBodyToWaypointDirection()
         {
-            return (2 * navMeshAgent.remainingDistance) > navMeshAgent.stoppingDistance;
+            var direction = plotManager.GetWaypointDirection().normalized;
+
+            if (direction != Vector3.zero)
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction), 1);
+        }
+
+
+        private void RotateBodyToTarget()
+        {
+            var direction = (navMeshAgent.steeringTarget - transform.position).normalized;
+            direction.y = 0f;
+
+            if ((navMeshAgent.steeringTarget - transform.position) != Vector3.zero)
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction), 1);
         }
     }
 }

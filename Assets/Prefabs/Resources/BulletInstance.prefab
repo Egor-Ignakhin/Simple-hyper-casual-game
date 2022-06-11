@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3039858632765341689}
   - component: {fileID: 3039858632765341688}
   - component: {fileID: 3039858632765341691}
-  - component: {fileID: 3039858632765341690}
   - component: {fileID: 3039858632765341694}
   m_Layer: 0
   m_Name: BulletInstance
@@ -83,19 +82,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3039858632765341690
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3039858632765341685}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3039858632765341694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,3 +94,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 929aa0e7b2c43ba44a22e0590fdec54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletSpeed: 0.325
+  force: 10000

@@ -8,6 +8,7 @@ namespace SquareDinoTestWork.Menu
     public sealed class StartTapHandler : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] private GameObject tapHintGM;
+
         [SerializeField] private PlotManager plotManager;
 
         public void OnPointerClick(PointerEventData eventData)
