@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SquareDinoTestWork.Player
+namespace SquareDinoTestWork
 {
     /// <summary>
     /// This script smooths camera movement

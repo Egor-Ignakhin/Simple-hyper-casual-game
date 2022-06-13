@@ -2,9 +2,9 @@ using SquareDinoTestWork.Combat;
 
 using UnityEngine;
 
-namespace SquareDinoTestWork.Player.Combat
+namespace SquareDinoTestWork.Player
 {
-    public sealed class PlayerCombatManager : MonoBehaviour
+    public sealed class PlayerCombat : MonoBehaviour
     {
         [SerializeField] private Camera mainCamera;
 

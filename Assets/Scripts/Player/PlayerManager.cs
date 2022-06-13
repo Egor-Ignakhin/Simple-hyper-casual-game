@@ -1,7 +1,4 @@
-using SquareDinoTestWork.Player.Combat;
 using SquareDinoTestWork.Plot;
-
-using System;
 
 using UnityEngine;
 namespace SquareDinoTestWork.Player
@@ -10,7 +7,7 @@ namespace SquareDinoTestWork.Player
     {
         [SerializeField] private PlotManager plotManager;
 
-        [SerializeField] private PlayerCombatManager playerCombatManager;
+        [SerializeField] private PlayerCombat playerCombatManager;
 
         [SerializeField] private PlayerMotion playerMotion;
 

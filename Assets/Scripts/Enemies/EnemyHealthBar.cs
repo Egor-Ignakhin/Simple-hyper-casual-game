@@ -5,7 +5,7 @@ namespace SquareDinoTestWork.Enemies
 {
     public sealed class EnemyHealthBar : MonoBehaviour
     {
-        [SerializeField] private Enemy enemy;
+        [SerializeField] private EnemyHealth enemy;
 
         [SerializeField] private Image healthBar;
 
@@ -24,7 +24,7 @@ namespace SquareDinoTestWork.Enemies
 
         private void UpdateBarFillAmount(uint health)
         {
-            healthBar.fillAmount = (float)health / Enemy.MaxHealth;
+            healthBar.fillAmount = (float)health / EnemyHealth.MaxHealth;
         }
 
         private void OnDestroy()

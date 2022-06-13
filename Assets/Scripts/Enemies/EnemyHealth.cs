@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SquareDinoTestWork.Enemies
 {
-    public sealed class Enemy : MonoBehaviour
+    public sealed class EnemyHealth : MonoBehaviour
     {
         public const uint MaxHealth = 3;
         public const uint MinHealth = 0;
@@ -12,14 +12,14 @@ namespace SquareDinoTestWork.Enemies
         [SerializeField, Range(1, MaxHealth)] private uint health = 1;
 
         public event Action<uint> HealthChanged;
-        public event Action<Enemy> EnemyDied;        
+        public event Action<EnemyHealth> EnemyDied;        
 
         public bool IsAlive()
         {
             return health == MinHealth;
         }
 
-        public void Hit()
+        public void TakeDamage()
         {
             health--;
             HealthChanged?.Invoke(health);

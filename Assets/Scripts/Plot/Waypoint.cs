@@ -8,7 +8,7 @@ namespace SquareDinoTestWork.Plot
 {
     public sealed class Waypoint : MonoBehaviour
     {
-        [SerializeField] private List<Enemy> enemies = new List<Enemy>();
+        [SerializeField] private List<EnemyHealth> enemies = new List<EnemyHealth>();
 
         private void Start()
         {
@@ -18,7 +18,7 @@ namespace SquareDinoTestWork.Plot
             }
         }
 
-        private void OnEnemyDied(Enemy enemy)
+        private void OnEnemyDied(EnemyHealth enemy)
         {
             enemies.Remove(enemy);
 

@@ -6,18 +6,18 @@ namespace SquareDinoTestWork.Enemies
     {
         [SerializeField] private Animator animator;
 
-        [SerializeField] private Enemy enemy;
+        [SerializeField] private EnemyHealth enemyHealth;
 
         [SerializeField] private Rigidbody[] ragdollRbs;
 
         private void Awake()
         {
-            enemy.EnemyDied += OnEnemyDied;
+            enemyHealth.EnemyDied += OnEnemyDied;
 
             SetEnableRagdoll(false);
         }
 
-        private void OnEnemyDied(Enemy _)
+        private void OnEnemyDied(EnemyHealth _)
         {
             SetEnableRagdoll(true);
         }
@@ -33,7 +33,7 @@ namespace SquareDinoTestWork.Enemies
 
         private void OnDestroy()
         {
-            enemy.EnemyDied -= OnEnemyDied;
+            enemyHealth.EnemyDied -= OnEnemyDied;
         }
     }
 }

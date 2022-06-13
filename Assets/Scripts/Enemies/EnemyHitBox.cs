@@ -5,13 +5,13 @@ namespace SquareDinoTestWork.Enemies
 {
     public sealed class EnemyHitBox : MonoBehaviour, IBulletReceiver
     {
-        [SerializeField] private Enemy enemyManager;
+        [SerializeField] private EnemyHealth EnemyHealth;
 
         [SerializeField] private Rigidbody mRigidbody;
 
         public void Hit(Bullet bullet)
         {
-            enemyManager.Hit();
+            EnemyHealth.TakeDamage();
             AddForceToRigidbody(bullet);
         }
 
