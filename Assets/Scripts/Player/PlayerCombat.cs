@@ -6,8 +6,6 @@ namespace SquareDinoTestWork.Player
 {
     public sealed class PlayerCombat : MonoBehaviour
     {
-        [SerializeField] private Camera mainCamera;
-
         [SerializeField] private Transform bulletInstantiatePlace;
 
         [SerializeField] private BulletsPool bulletsPool;

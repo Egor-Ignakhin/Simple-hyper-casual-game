@@ -6,7 +6,7 @@ namespace SquareDinoTestWork.Player
     {
         [SerializeField] Animator animator;
       
-        private PlayerAnimatorStates currentState;
+        private PlayerMotionTypes currentMotionType;
 
         private int canRunHash;
 
@@ -15,16 +15,16 @@ namespace SquareDinoTestWork.Player
             canRunHash = Animator.StringToHash("CanRun");
         }
 
-        public void SetAnimatorState(PlayerAnimatorStates state)
+        public void SetAnimatorState(PlayerMotionTypes motionType)
         {
-            currentState = state;
+            currentMotionType = motionType;
 
             UpdateAnimatorState();
         }
 
         private void UpdateAnimatorState()
         {
-            animator.SetBool(canRunHash, currentState == PlayerAnimatorStates.Run);
+            animator.SetBool(canRunHash, currentMotionType == PlayerMotionTypes.Run);
         }
     }
 }

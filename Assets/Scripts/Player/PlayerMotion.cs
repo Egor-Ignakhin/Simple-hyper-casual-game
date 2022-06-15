@@ -1,4 +1,6 @@
 
+using System;
+
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,32 +8,33 @@ namespace SquareDinoTestWork.Player
 {
     public sealed class PlayerMotion : MonoBehaviour
     {
+        public event Action<PlayerMotionTypes> MotionTypeChanged;
+
+        private Vector3 bodyDirection;
+
         [SerializeField] private NavMeshAgent navMeshAgent;
 
-        [SerializeField] private PlayerManager playerManager;
-
-        private void Start()
+        public void SetupAgentDestination(Vector3 target)
         {
-            SetupWaypoint();
-        }
-
-        public void SetupWaypoint()
-        {
-            navMeshAgent.SetDestination(playerManager.GetWaypointPosition());
+            navMeshAgent.SetDestination(target);
         }
 
         public void Move()
         {
+            bool prevAgentIsStopped = navMeshAgent.isStopped;
             navMeshAgent.isStopped = TryStop();
             RotateBodyToTarget();
 
+            if (prevAgentIsStopped == navMeshAgent.isStopped)
+                return;
+
             if (navMeshAgent.isStopped)
             {
-                playerManager.OnAgentStop();
+                MotionTypeChanged?.Invoke(PlayerMotionTypes.Idle);
             }
             else
             {
-                playerManager.OnAgentRun();
+                MotionTypeChanged?.Invoke(PlayerMotionTypes.Run);
             }
         }
 
@@ -40,15 +43,27 @@ namespace SquareDinoTestWork.Player
             return navMeshAgent.remainingDistance <= (navMeshAgent.stoppingDistance * 5);
         }
 
+        internal bool AgentIsStopped()
+        {
+            return navMeshAgent.isStopped;
+        }
+
+        internal Vector3 GetAgentSteerengTargetDirection()
+        {
+            return navMeshAgent.steeringTarget - transform.position;
+        }
+
+        public void SetupDirection(Vector3 direction)
+        {
+            bodyDirection = direction;
+        }
+
         private void RotateBodyToTarget()
         {
-            Vector3 direction = navMeshAgent.isStopped ? playerManager.GetWaypointDirection().normalized :
-                (navMeshAgent.steeringTarget - transform.position).normalized;
-
-            if (direction != Vector3.zero)
+            if (bodyDirection != Vector3.zero)
             {
                 transform.rotation = Quaternion.RotateTowards(transform.rotation,
-                    Quaternion.LookRotation(direction), 1);
+                    Quaternion.LookRotation(bodyDirection), 1);
             }
         }
     }

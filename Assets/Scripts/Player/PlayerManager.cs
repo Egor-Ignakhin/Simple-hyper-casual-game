@@ -15,6 +15,11 @@ namespace SquareDinoTestWork.Player
 
         [SerializeField] private PlayerInput playerInput;
 
+        private void Awake()
+        {
+            playerMotion.MotionTypeChanged += OnPlayerMotionTypeChanged;
+        }
+
         private void Update()
         {
             if (!plotManager.GameIsStarted())
@@ -41,24 +46,27 @@ namespace SquareDinoTestWork.Player
             return playerMotion.TryStop() && plotManager.WaypointHaveEnemies() && playerInput.ShootButtonIsDown();
         }
 
-        internal void OnAgentStop()
+        internal void OnPlayerMotionTypeChanged(PlayerMotionTypes playerMotionType)
         {
-            playerAnimator.SetAnimatorState(PlayerAnimatorStates.Idle);
-        }
+            switch (playerMotionType)
+            {
+                case PlayerMotionTypes.Run:
+                    playerAnimator.SetAnimatorState(PlayerMotionTypes.Run);
+                    break;
 
-        internal void OnAgentRun()
-        {
-            playerAnimator.SetAnimatorState(PlayerAnimatorStates.Run);
+                case PlayerMotionTypes.Idle:
+                    playerAnimator.SetAnimatorState(PlayerMotionTypes.Idle);
+                    break;
+            }
+
+            Vector3 agentDirection = playerMotion.AgentIsStopped() ? GetWaypointDirection().normalized :
+                      playerMotion.GetAgentSteerengTargetDirection();
+            playerMotion.SetupDirection(agentDirection);
         }
 
         internal Vector3 GetWaypointDirection()
         {
             return plotManager.GetWaypointDirection().normalized;
-        }
-
-        internal Vector3 GetWaypointPosition()
-        {
-            return plotManager.GetWaypointPosition();
         }
 
         private bool CanSkipWaypoint()
@@ -69,7 +77,14 @@ namespace SquareDinoTestWork.Player
         private void SkipWaypoint()
         {
             plotManager.SkipWaypoint();
-            playerMotion.SetupWaypoint();
+
+            Vector3 agentTarget = plotManager.GetWaypointPosition();
+            playerMotion.SetupAgentDestination(agentTarget);
+        }
+
+        private void OnDestroy()
+        {
+            playerMotion.MotionTypeChanged -= OnPlayerMotionTypeChanged;
         }
     }
 }
