@@ -36,10 +36,9 @@ namespace SquareDinoTestWork.Player
             }
         }
 
-
         private bool CanShoot()
         {
-            return playerMotion.CanStop() && plotManager.WaypointHaveEnemies() && playerInput.ShootButtonIsDown();
+            return playerMotion.TryStop() && plotManager.WaypointHaveEnemies() && playerInput.ShootButtonIsDown();
         }
 
         internal void OnAgentStop()
@@ -52,9 +51,19 @@ namespace SquareDinoTestWork.Player
             playerAnimator.SetAnimatorState(PlayerAnimatorStates.Run);
         }
 
+        internal Vector3 GetWaypointDirection()
+        {
+            return plotManager.GetWaypointDirection().normalized;
+        }
+
+        internal Vector3 GetWaypointPosition()
+        {
+            return plotManager.GetWaypointPosition();
+        }
+
         private bool CanSkipWaypoint()
         {
-            return (!plotManager.WaypointHaveEnemies()) && playerMotion.CanStop();
+            return (!plotManager.WaypointHaveEnemies()) && playerMotion.TryStop();
         }
 
         private void SkipWaypoint()
