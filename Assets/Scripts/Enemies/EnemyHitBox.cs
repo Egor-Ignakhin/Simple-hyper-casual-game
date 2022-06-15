@@ -1,17 +1,19 @@
 using SquareDinoTestWork.Combat;
 
+using System;
+
 using UnityEngine;
 namespace SquareDinoTestWork.Enemies
 {
     public sealed class EnemyHitBox : MonoBehaviour, IBulletReceiver
     {
-        [SerializeField] private EnemyHealth EnemyHealth;
+        public event Action Hited;
 
         [SerializeField] private Rigidbody mRigidbody;
 
         public void Hit(Bullet bullet)
         {
-            EnemyHealth.TakeDamage();
+            Hited?.Invoke();
             AddForceToRigidbody(bullet);
         }
 

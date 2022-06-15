@@ -2952,6 +2952,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 383230665558975958, guid: 83f6a4045e6bb084d9a84b6316c13ede, type: 3}
+      propertyPath: health
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 557986862161443444, guid: 83f6a4045e6bb084d9a84b6316c13ede, type: 3}
       propertyPath: m_ConnectedAnchor.x
       value: -0.40415448

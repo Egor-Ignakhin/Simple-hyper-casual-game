@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 using UnityEngine;
 
@@ -12,11 +13,16 @@ namespace SquareDinoTestWork.Enemies
         [SerializeField, Range(1, MaxHealth)] private uint health = 1;
 
         public event Action<uint> HealthChanged;
-        public event Action<EnemyHealth> EnemyDied;        
+        public event Action<EnemyHealth> EnemyDied;
 
-        public bool IsAlive()
+        [SerializeField] private List<EnemyHitBox> enemyHitBoxes = new List<EnemyHitBox>();
+
+        private void Awake()
         {
-            return health == MinHealth;
+            foreach(var hitBox in enemyHitBoxes)
+            {
+                hitBox.Hited += TakeDamage;
+            }
         }
 
         public void TakeDamage()
@@ -33,6 +39,21 @@ namespace SquareDinoTestWork.Enemies
         private void Die()
         {
             EnemyDied?.Invoke(this);
+
+            UnsubsribeFromHitBoxes();
+        }
+
+        private void UnsubsribeFromHitBoxes()
+        {
+            foreach (var hitBox in enemyHitBoxes)
+            {
+                hitBox.Hited -= TakeDamage;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            UnsubsribeFromHitBoxes();
         }
     }
 }

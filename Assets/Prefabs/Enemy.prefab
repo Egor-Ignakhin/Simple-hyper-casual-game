@@ -376,6 +376,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
+  enemyHitBoxes:
+  - {fileID: 8588801251488443050}
+  - {fileID: 9044922989016863721}
+  - {fileID: 7362034440066911143}
+  - {fileID: 7640250938679602273}
+  - {fileID: 411271844537790194}
+  - {fileID: 4105607232968349973}
+  - {fileID: 7626479010945810367}
+  - {fileID: 5007667932908816419}
+  - {fileID: 6654264893727451239}
+  - {fileID: 362158717186812989}
+  - {fileID: 8599226260174870186}
 --- !u!54 &965105569
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -417,7 +429,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14acd33a3207cb44a80f96f4c0fdb04b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyHealth: {fileID: 383230665558975958}
   mRigidbody: {fileID: 965105569}
 --- !u!54 &673494669
 Rigidbody:
@@ -506,7 +517,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14acd33a3207cb44a80f96f4c0fdb04b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyHealth: {fileID: 383230665558975958}
   mRigidbody: {fileID: 673494669}
 --- !u!54 &1560199713
 Rigidbody:
@@ -596,7 +606,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14acd33a3207cb44a80f96f4c0fdb04b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyHealth: {fileID: 383230665558975958}
   mRigidbody: {fileID: 1560199713}
 --- !u!54 &912790097
 Rigidbody:
@@ -686,7 +695,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14acd33a3207cb44a80f96f4c0fdb04b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyHealth: {fileID: 383230665558975958}
   mRigidbody: {fileID: 912790097}
 --- !u!54 &7839174
 Rigidbody:
@@ -776,7 +784,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14acd33a3207cb44a80f96f4c0fdb04b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyHealth: {fileID: 383230665558975958}
   mRigidbody: {fileID: 7839174}
 --- !u!54 &1344440494
 Rigidbody:
@@ -866,7 +873,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14acd33a3207cb44a80f96f4c0fdb04b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyHealth: {fileID: 383230665558975958}
   mRigidbody: {fileID: 1344440494}
 --- !u!54 &722047782
 Rigidbody:
@@ -955,7 +961,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14acd33a3207cb44a80f96f4c0fdb04b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyHealth: {fileID: 383230665558975958}
   mRigidbody: {fileID: 722047782}
 --- !u!54 &1561965163
 Rigidbody:
@@ -1045,7 +1050,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14acd33a3207cb44a80f96f4c0fdb04b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyHealth: {fileID: 383230665558975958}
   mRigidbody: {fileID: 1561965163}
 --- !u!54 &160217128
 Rigidbody:
@@ -1135,7 +1139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14acd33a3207cb44a80f96f4c0fdb04b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyHealth: {fileID: 383230665558975958}
   mRigidbody: {fileID: 160217128}
 --- !u!54 &1213584197
 Rigidbody:
@@ -1225,7 +1228,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14acd33a3207cb44a80f96f4c0fdb04b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyHealth: {fileID: 383230665558975958}
   mRigidbody: {fileID: 1213584197}
 --- !u!54 &514025290
 Rigidbody:
@@ -1315,5 +1317,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14acd33a3207cb44a80f96f4c0fdb04b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyHealth: {fileID: 383230665558975958}
   mRigidbody: {fileID: 514025290}
