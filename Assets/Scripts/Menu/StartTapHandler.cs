@@ -9,18 +9,16 @@ namespace SquareDinoTestWork.Menu
     {
         [SerializeField] private GameObject tapHintGM;
 
-        [SerializeField] private PlotManager plotManager;
-
         public void OnPointerClick(PointerEventData eventData)
         {
-            StartGame();
+            StartLevel();
         }
 
-        private void StartGame()
+        private void StartLevel()
         {
             HideTapHint();
 
-            plotManager.StartGame();
+            GamePlot.StartLevel();
         }
 
         private void HideTapHint()

@@ -1,4 +1,6 @@
 
+using SquareDinoTestWork.Plot;
+
 using System;
 
 using UnityEngine;
@@ -6,31 +8,57 @@ using UnityEngine.AI;
 
 namespace SquareDinoTestWork.Player
 {
-    public sealed class PlayerMotion : MonoBehaviour
+    public sealed class PlayerMotion : MonoBehaviour, IGameAction
     {
         public event Action<PlayerMotionTypes> MotionTypeChanged;
 
-        private Vector3 bodyDirection;
+        public bool CanDo { get; set; }
 
         [SerializeField] private NavMeshAgent navMeshAgent;
 
-        public void SetupAgentDestination(Vector3 target)
+        [SerializeField] private WaypointsTracker waypointsTracker;
+
+        private Waypoint currentWaypoint;
+
+        private void Awake()
         {
-            navMeshAgent.SetDestination(target);
+            navMeshAgent.isStopped = true;
+            waypointsTracker.WaypointSkipped += OnWaypointSkipped;
+        }
+
+        private void OnWaypointSkipped(Waypoint waypoint)
+        {
+            currentWaypoint = waypoint;
+            navMeshAgent.SetDestination(currentWaypoint.transform.position);
+        }
+
+        private void Update()
+        {
+            if (!CanDo)
+                return;
+
+            Move();
         }
 
         public void Move()
         {
-            bool prevAgentIsStopped = navMeshAgent.isStopped;
+            bool prevAgentStoppedState = navMeshAgent.isStopped;
             navMeshAgent.isStopped = CanStop();
             RotateBodyToTarget();
 
-            if (prevAgentIsStopped == navMeshAgent.isStopped)
+
+            if (prevAgentStoppedState == navMeshAgent.isStopped)
                 return;
 
+            ChangeMotionType();
+        }
+
+        private void ChangeMotionType()
+        {
             if (navMeshAgent.isStopped)
             {
                 MotionTypeChanged?.Invoke(PlayerMotionTypes.Idle);
+                currentWaypoint.SetPlayerReachedPoint(true);
             }
             else
             {
@@ -38,14 +66,29 @@ namespace SquareDinoTestWork.Player
             }
         }
 
-        internal bool CanStop()
+        private bool CanStop()
         {
             return navMeshAgent.remainingDistance <= (navMeshAgent.stoppingDistance * 5);
         }
 
-        internal bool AgentIsStopped()
+        private void RotateBodyToTarget()
         {
-            return navMeshAgent.isStopped;
+            Vector3 normalizedDirection = ComputeNormalizedDirection();
+
+            if (normalizedDirection != Vector3.zero)
+            {
+                transform.rotation = Quaternion.RotateTowards(transform.rotation,
+                    Quaternion.LookRotation(normalizedDirection), 1);
+            }
+        }
+
+        private Vector3 ComputeNormalizedDirection()
+        {
+            Vector3 direction = navMeshAgent.isStopped ?
+                currentWaypoint.GetDirection() :
+                      GetAgentSteerengTargetDirection();
+
+            return direction.normalized;
         }
 
         internal Vector3 GetAgentSteerengTargetDirection()
@@ -53,18 +96,9 @@ namespace SquareDinoTestWork.Player
             return navMeshAgent.steeringTarget - transform.position;
         }
 
-        public void SetupDirection(Vector3 direction)
+        private void OnDestroy()
         {
-            bodyDirection = direction.normalized;
-        }
-
-        private void RotateBodyToTarget()
-        {
-            if (bodyDirection != Vector3.zero)
-            {
-                transform.rotation = Quaternion.RotateTowards(transform.rotation,
-                    Quaternion.LookRotation(bodyDirection), 1);
-            }
+            waypointsTracker.WaypointSkipped -= OnWaypointSkipped;
         }
     }
 }

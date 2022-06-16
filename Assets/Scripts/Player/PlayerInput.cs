@@ -7,7 +7,7 @@ namespace SquareDinoTestWork.Player
     {
         [SerializeField, Range(0, 2)] private int shootMousebutton;
 
-        internal bool ShootButtonIsDown()
+        internal bool ShootButtonDown()
         {
            return Input.GetMouseButtonDown(shootMousebutton);
         }

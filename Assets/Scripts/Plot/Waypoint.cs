@@ -10,9 +10,11 @@ namespace SquareDinoTestWork.Plot
     {
         [SerializeField] private List<EnemyHealth> enemies = new List<EnemyHealth>();
 
+        private bool playerReachedPoint;
+
         private void Start()
         {
-            foreach(var enemy in enemies)
+            foreach (var enemy in enemies)
             {
                 enemy.EnemyDied += OnEnemyDied;
             }
@@ -25,9 +27,19 @@ namespace SquareDinoTestWork.Plot
             enemy.EnemyDied -= OnEnemyDied;
         }
 
-        internal bool HaveEnemies()
+        internal void SetPlayerReachedPoint(bool v)
         {
-            return enemies.Count > 0;
+            playerReachedPoint = v;
+        }
+
+        internal bool HaventEnemies()
+        {
+            return enemies.Count == 0;
+        }
+
+        internal Vector3 GetDirection()
+        {
+            return transform.forward;
         }
 
         private void OnDestroy()
@@ -42,6 +54,11 @@ namespace SquareDinoTestWork.Plot
         {
             Gizmos.color = Color.green;
             Gizmos.DrawRay(transform.position, transform.forward);
+        }
+
+        internal bool CanSkip()
+        {
+            return HaventEnemies() && playerReachedPoint;
         }
     }
 }

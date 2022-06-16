@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 3152644260463456850}
+  playerMotion: {fileID: 310519732}
 --- !u!114 &310519732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,24 +181,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navMeshAgent: {fileID: 310519734}
   plotManager: {fileID: 0}
-  playerManager: {fileID: 310519733}
---- !u!114 &310519733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3067272932101328024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb26180c2a101b34a9b991e310df75f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  plotManager: {fileID: 0}
-  playerCombatManager: {fileID: 5603991910811478755}
-  playerMotion: {fileID: 310519732}
-  playerAnimator: {fileID: 310519731}
-  playerInput: {fileID: 813546497}
 --- !u!195 &310519734
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -233,7 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootMousebutton: 0
---- !u!114 &5603991910811478755
+--- !u!114 &3067675591008488200
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -242,11 +225,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3067272932101328024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db2a482fa5292e143a0885ebdc966fa9, type: 3}
+  m_Script: {fileID: 11500000, guid: 373f342d3ea254a4aa0f485d44c08ecd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
   bulletInstantiatePlace: {fileID: 1940732848}
   bulletsPool:
     bulletsParent: {fileID: 0}
     bulletsCount: 10
+  playerMotion: {fileID: 310519732}
+  plotManager: {fileID: 0}
+  playerInput: {fileID: 813546497}

@@ -4,7 +4,7 @@ namespace SquareDinoTestWork.Combat
 {
     public sealed class Bullet : PoolableObject
     {
-        private IBulletReceiver ibulletReceiver;
+        private IBulletReceiver bulletReceiver;
 
         [SerializeField] private BulletMotion bulletMotion;
 
@@ -13,7 +13,7 @@ namespace SquareDinoTestWork.Combat
         public void Initialize(Vector3 position, Vector3 surfacePoint, IBulletReceiver bulletReceiver)
         {
             transform.position = position;
-            this.ibulletReceiver = bulletReceiver;
+            this.bulletReceiver = bulletReceiver;
 
             bulletMotion.Initialize(surfacePoint);
 
@@ -22,7 +22,7 @@ namespace SquareDinoTestWork.Combat
 
         private void Hit()
         {
-            ibulletReceiver?.Hit(this);
+            bulletReceiver?.Hit(this);
             bulletMotion.MoveCompleted -= Hit;
             mPool.ReturnToPool(this);
         }

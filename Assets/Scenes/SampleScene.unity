@@ -2192,7 +2192,7 @@ GameObject:
   - component: {fileID: 706029777}
   - component: {fileID: 706029778}
   m_Layer: 0
-  m_Name: PlotManager
+  m_Name: WaypointsTracker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3904,6 +3904,51 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
+--- !u!1 &1242611974
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1242611975}
+  - component: {fileID: 1242611976}
+  m_Layer: 0
+  m_Name: IGameActionsHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1242611975
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242611974}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1827391589}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1242611976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242611974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4a68b0a2601c974dae41494f8c42710, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerActionsGM:
+  - {fileID: 3067675591008488199}
 --- !u!1001 &1288936378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4345,7 +4390,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tapHintGM: {fileID: 1519410755}
-  plotManager: {fileID: 706029778}
 --- !u!1 &1549162756
 GameObject:
   m_ObjectHideFlags: 0
@@ -5069,6 +5113,7 @@ Transform:
   m_Children:
   - {fileID: 706029777}
   - {fileID: 919205356}
+  - {fileID: 1242611975}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6251,14 +6296,22 @@ PrefabInstance:
       propertyPath: plotManager
       value: 
       objectReference: {fileID: 706029778}
-    - target: {fileID: 310519733, guid: 5fb136ec326dae74a984364fae0d3be1, type: 3}
-      propertyPath: plotManager
+    - target: {fileID: 310519732, guid: 5fb136ec326dae74a984364fae0d3be1, type: 3}
+      propertyPath: waypointsTracker
       value: 
       objectReference: {fileID: 706029778}
     - target: {fileID: 3067272932101328024, guid: 5fb136ec326dae74a984364fae0d3be1, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3067675591008488200, guid: 5fb136ec326dae74a984364fae0d3be1, type: 3}
+      propertyPath: plotManager
+      value: 
+      objectReference: {fileID: 706029778}
+    - target: {fileID: 3067675591008488200, guid: 5fb136ec326dae74a984364fae0d3be1, type: 3}
+      propertyPath: bulletsPool.bulletsParent
+      value: 
+      objectReference: {fileID: 1873958727}
     - target: {fileID: 3070339078852563836, guid: 5fb136ec326dae74a984364fae0d3be1, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -6303,12 +6356,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5603991910811478755, guid: 5fb136ec326dae74a984364fae0d3be1, type: 3}
-      propertyPath: bulletsPool.bulletsParent
-      value: 
-      objectReference: {fileID: 1873958727}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5fb136ec326dae74a984364fae0d3be1, type: 3}
+--- !u!1 &3067675591008488199 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3067272932101328024, guid: 5fb136ec326dae74a984364fae0d3be1, type: 3}
+  m_PrefabInstance: {fileID: 3067675591008488198}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8199812884011076076
 PrefabInstance:
   m_ObjectHideFlags: 0

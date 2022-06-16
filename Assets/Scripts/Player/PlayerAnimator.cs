@@ -5,26 +5,31 @@ namespace SquareDinoTestWork.Player
     public sealed class PlayerAnimator : MonoBehaviour
     {
         [SerializeField] Animator animator;
-      
-        private PlayerMotionTypes currentMotionType;
+
+        [SerializeField] private PlayerMotion playerMotion;
 
         private int canRunHash;
 
         private void Awake()
         {
             canRunHash = Animator.StringToHash("CanRun");
+
+            playerMotion.MotionTypeChanged += OnPlayerMotionTypeChanged;
         }
 
-        public void SetAnimatorState(PlayerMotionTypes motionType)
+        private void OnPlayerMotionTypeChanged(PlayerMotionTypes playerMotionType)
         {
-            currentMotionType = motionType;
-
-            UpdateAnimatorState();
+            UpdateAnimatorState(playerMotionType);
         }
 
-        private void UpdateAnimatorState()
+        private void UpdateAnimatorState(PlayerMotionTypes playerMotionType)
         {
-            animator.SetBool(canRunHash, currentMotionType == PlayerMotionTypes.Run);
+            animator.SetBool(canRunHash, playerMotionType == PlayerMotionTypes.Run);
+        }
+
+        private void OnDestroy()
+        {
+            playerMotion.MotionTypeChanged -= OnPlayerMotionTypeChanged;
         }
     }
 }
