@@ -25,25 +25,45 @@ namespace SquareDinoTestWork.Player
             if (!plotManager.GameIsStarted())
                 return;
 
+            TrySkipWaypoint();
+
+            TryShoot();
+
+            playerMotion.Move();
+        }
+
+        private void TrySkipWaypoint()
+        {
             if (CanSkipWaypoint())
             {
                 SkipWaypoint();
             }
+        }
 
+        private bool CanSkipWaypoint()
+        {
+            return (!plotManager.WaypointHaveEnemies()) && playerMotion.CanStop();
+        }
 
+        private void SkipWaypoint()
+        {
+            plotManager.SkipWaypoint();
+
+            Vector3 agentTarget = plotManager.GetWaypointPosition();
+            playerMotion.SetupAgentDestination(agentTarget);
+        }
+
+        private void TryShoot()
+        {
             if (CanShoot())
             {
                 playerCombatManager.Shoot();
-            }
-            else
-            {
-                playerMotion.Move();
             }
         }
 
         private bool CanShoot()
         {
-            return playerMotion.TryStop() && plotManager.WaypointHaveEnemies() && playerInput.ShootButtonIsDown();
+            return playerMotion.CanStop() && plotManager.WaypointHaveEnemies() && playerInput.ShootButtonIsDown();
         }
 
         internal void OnPlayerMotionTypeChanged(PlayerMotionTypes playerMotionType)
@@ -59,27 +79,9 @@ namespace SquareDinoTestWork.Player
                     break;
             }
 
-            Vector3 agentDirection = playerMotion.AgentIsStopped() ? GetWaypointDirection().normalized :
+            Vector3 agentDirection = playerMotion.AgentIsStopped() ? plotManager.GetWaypointDirection() :
                       playerMotion.GetAgentSteerengTargetDirection();
             playerMotion.SetupDirection(agentDirection);
-        }
-
-        internal Vector3 GetWaypointDirection()
-        {
-            return plotManager.GetWaypointDirection().normalized;
-        }
-
-        private bool CanSkipWaypoint()
-        {
-            return (!plotManager.WaypointHaveEnemies()) && playerMotion.TryStop();
-        }
-
-        private void SkipWaypoint()
-        {
-            plotManager.SkipWaypoint();
-
-            Vector3 agentTarget = plotManager.GetWaypointPosition();
-            playerMotion.SetupAgentDestination(agentTarget);
         }
 
         private void OnDestroy()

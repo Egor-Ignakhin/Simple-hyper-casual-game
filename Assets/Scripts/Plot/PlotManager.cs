@@ -8,12 +8,12 @@ namespace SquareDinoTestWork.Plot
 {
     public sealed class PlotManager : MonoBehaviour
     {
+        public event Action WaypointSkipped;
+
         private bool gameIsStarted;
 
         private readonly Queue<Waypoint> waypointsQueue = new Queue<Waypoint>();
         [SerializeField] private Transform waypointsParent;
-
-        public event Action WaypointSkipped;
 
         private void Awake()
         {

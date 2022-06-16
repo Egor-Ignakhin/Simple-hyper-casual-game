@@ -22,7 +22,7 @@ namespace SquareDinoTestWork.Player
         public void Move()
         {
             bool prevAgentIsStopped = navMeshAgent.isStopped;
-            navMeshAgent.isStopped = TryStop();
+            navMeshAgent.isStopped = CanStop();
             RotateBodyToTarget();
 
             if (prevAgentIsStopped == navMeshAgent.isStopped)
@@ -38,7 +38,7 @@ namespace SquareDinoTestWork.Player
             }
         }
 
-        internal bool TryStop()
+        internal bool CanStop()
         {
             return navMeshAgent.remainingDistance <= (navMeshAgent.stoppingDistance * 5);
         }
@@ -55,7 +55,7 @@ namespace SquareDinoTestWork.Player
 
         public void SetupDirection(Vector3 direction)
         {
-            bodyDirection = direction;
+            bodyDirection = direction.normalized;
         }
 
         private void RotateBodyToTarget()

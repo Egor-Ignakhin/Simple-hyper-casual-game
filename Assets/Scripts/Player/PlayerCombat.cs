@@ -34,7 +34,7 @@ namespace SquareDinoTestWork.Player
                 bulletEndPoint = ray.GetPoint(100);
             }
 
-            ballet.SetupBullet(bulletInstantiatePlace.position, bulletEndPoint, bulletReceiver);
+            ballet.Initialize(bulletInstantiatePlace.position, bulletEndPoint, bulletReceiver);
         }
 
         private RaycastHit TryThrowRayCast(Ray ray)
