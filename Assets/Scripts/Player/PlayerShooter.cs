@@ -16,18 +16,18 @@ namespace SquareDinoTestWork.Player
 
         [SerializeField] private PlayerInput playerInput;
 
-        private PlayerMotionTypes currentPlayerMotionType;
+        private IPlayerMotionState currentPlayerMotionState;
 
         private void Awake()
         {
             bulletsPool.Initialize();
 
-            playerMotion.MotionTypeChanged += OnMotionTypeChanged;
+            playerMotion.MotionStateChanged += OnMotionTypeChanged;
         }
 
-        private void OnMotionTypeChanged(PlayerMotionTypes playerMotionType)
+        private void OnMotionTypeChanged(IPlayerMotionState playerMotionState)
         {
-            currentPlayerMotionType = playerMotionType;
+            currentPlayerMotionState = playerMotionState;
         }
 
         private void Update()
@@ -43,7 +43,7 @@ namespace SquareDinoTestWork.Player
 
         private bool CanShoot()
         {
-            return currentPlayerMotionType == PlayerMotionTypes.Idle &&
+            return (currentPlayerMotionState is IdlePlayerMotionState) &&
                 playerInput.ShootButtonDown();
         }
 
@@ -79,7 +79,7 @@ namespace SquareDinoTestWork.Player
 
         private void OnDestroy()
         {
-            playerMotion.MotionTypeChanged -= OnMotionTypeChanged;
+            playerMotion.MotionStateChanged -= OnMotionTypeChanged;
         }
     }
 }

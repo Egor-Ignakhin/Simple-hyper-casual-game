@@ -14,22 +14,22 @@ namespace SquareDinoTestWork.Player
         {
             canRunHash = Animator.StringToHash("CanRun");
 
-            playerMotion.MotionTypeChanged += OnPlayerMotionTypeChanged;
+            playerMotion.MotionStateChanged += OnPlayerMotionTypeChanged;
         }
 
-        private void OnPlayerMotionTypeChanged(PlayerMotionTypes playerMotionType)
+        private void OnPlayerMotionTypeChanged(IPlayerMotionState playerMotionState)
         {
-            UpdateAnimatorState(playerMotionType);
+            UpdateAnimatorState(playerMotionState);
         }
 
-        private void UpdateAnimatorState(PlayerMotionTypes playerMotionType)
+        private void UpdateAnimatorState(IPlayerMotionState playerMotionState)
         {
-            animator.SetBool(canRunHash, playerMotionType == PlayerMotionTypes.Run);
+            animator.SetBool(canRunHash, playerMotionState is RunPlayerMotionState);
         }
 
         private void OnDestroy()
         {
-            playerMotion.MotionTypeChanged -= OnPlayerMotionTypeChanged;
+            playerMotion.MotionStateChanged -= OnPlayerMotionTypeChanged;
         }
     }
 }

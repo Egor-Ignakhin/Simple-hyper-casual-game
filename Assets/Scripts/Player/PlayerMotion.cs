@@ -10,9 +10,15 @@ namespace SquareDinoTestWork.Player
 {
     public sealed class PlayerMotion : MonoBehaviour, IGameAction
     {
-        public event Action<PlayerMotionTypes> MotionTypeChanged;
+        public event Action<IPlayerMotionState> MotionStateChanged;
 
         public bool CanDo { get; set; }
+
+        private IPlayerMotionState noneState;
+        private IPlayerMotionState idleState;
+        private IPlayerMotionState runState;
+
+        private IPlayerMotionState state;
 
         [SerializeField] private NavMeshAgent navMeshAgent;
 
@@ -24,6 +30,12 @@ namespace SquareDinoTestWork.Player
         {
             navMeshAgent.isStopped = true;
             waypointsTracker.WaypointSkipped += OnWaypointSkipped;
+
+            noneState = new NonePlayerMotionState(this);
+            idleState = new IdlePlayerMotionState(this);
+            runState = new RunPlayerMotionState(this);
+
+            state = noneState;
         }
 
         private void OnWaypointSkipped(Waypoint waypoint)
@@ -57,12 +69,12 @@ namespace SquareDinoTestWork.Player
         {
             if (navMeshAgent.isStopped)
             {
-                MotionTypeChanged?.Invoke(PlayerMotionTypes.Idle);
+                SetState(idleState);
                 currentWaypoint.SetPlayerReachedPoint(true);
             }
             else
             {
-                MotionTypeChanged?.Invoke(PlayerMotionTypes.Run);
+                SetState(runState);
             }
         }
 
@@ -94,6 +106,32 @@ namespace SquareDinoTestWork.Player
         internal Vector3 GetAgentSteerengTargetDirection()
         {
             return navMeshAgent.steeringTarget - transform.position;
+        }
+
+        public void Run()
+        {
+            state.SetRun();
+        }
+
+        public void Idle()
+        {
+            state.SetIdle();
+        }
+
+        public void SetState(IPlayerMotionState state)
+        {
+            this.state = state;
+            MotionStateChanged?.Invoke(state);
+        }
+
+        public IPlayerMotionState GetIdleState()
+        {
+            return idleState;
+        }
+
+        public IPlayerMotionState GetRunState()
+        {
+            return runState;
         }
 
         private void OnDestroy()
